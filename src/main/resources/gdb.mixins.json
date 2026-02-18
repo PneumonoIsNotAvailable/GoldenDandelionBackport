@@ -5,6 +5,7 @@
     "mixins": [
         "AgeableMobMixin",
         "AnimalMixin",
+        "AxolotlMixin",
         "DolphinMixin",
         "LlamaMixin",
         "PandaMixin",
