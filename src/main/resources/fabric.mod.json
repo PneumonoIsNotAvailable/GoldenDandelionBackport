@@ -1,0 +1,35 @@
+{
+	"schemaVersion": 1,
+	"id": "gdb",
+	"version": "${version}",
+	"name": "Golden Dandelion Backport",
+	"description": "Adds the Golden Dandelion to earlier versions of the game",
+	"authors": [
+		"Pneumono_"
+	],
+	"contact": {
+		"homepage": "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport",
+		"sources": "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport",
+		"issues": "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport/issues"
+	},
+	"license": "MIT",
+	"icon": "assets/gdb/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"net.pneumono.gdb.GoldenDandelionBackport"
+		],
+		"client": [
+			"net.pneumono.gdb.GoldenDandelionBackportClient"
+		]
+	},
+	"mixins": [
+		"gdb.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.18.4",
+		"minecraft": "~1.21.11",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

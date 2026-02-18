@@ -1,0 +1,19 @@
+{
+    "required": true,
+    "package": "net.pneumono.gdb.mixin",
+    "compatibilityLevel": "JAVA_21",
+    "mixins": [
+        "AgeableMobMixin",
+        "AnimalMixin",
+        "DolphinMixin",
+        "LlamaMixin",
+        "PandaMixin",
+        "SheepMixin"
+    ],
+    "injectors": {
+        "defaultRequire": 1
+    },
+    "overwrites": {
+        "requireAnnotations": true
+	}
+}
