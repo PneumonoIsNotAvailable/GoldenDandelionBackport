@@ -1,0 +1,7 @@
+{
+    "block.gdb.golden_dandelion": "Золота кульбаба",
+    "block.gdb.potted_golden_dandelion": "Золота кульбаба в горщику",
+    "subtitles.item.gdb.golden_dandelion.unuse": "Золота кульбаба відновлює старіння",
+    "subtitles.item.gdb.golden_dandelion.use": "Золота кульбаба зупиняє старіння",
+    "modmenu.descriptionTranslation.gdb": "Додає золоту кульбабу до старіших версій гри."
+}
