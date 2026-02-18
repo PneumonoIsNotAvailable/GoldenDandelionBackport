@@ -1,7 +1,6 @@
 package net.pneumono.gdb;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
-import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -16,7 +15,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.villager.VillagerTrades;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -46,7 +44,6 @@ public class GDBRegistry {
                     .initializer(() -> AgeLockData.DEFAULT)
                     .persistent(AgeLockData.CODEC)
                     .copyOnDeath()
-                    .syncWith(AgeLockData.STREAM_CODEC, AttachmentSyncPredicate.all())
     );
 
     private static Block registerBlock() {
