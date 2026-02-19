@@ -2,5 +2,8 @@
     "block.gdb.golden_dandelion": "Golden Dandelion",
     "block.gdb.potted_golden_dandelion": "Potted Golden Dandelion",
     "subtitles.item.gdb.golden_dandelion.unuse": "Golden Dandelion starts aging",
-    "subtitles.item.gdb.golden_dandelion.use": "Golden Dandelion halts aging"
+    "subtitles.item.gdb.golden_dandelion.use": "Golden Dandelion halts aging",
+    "modmenu.nameTranslation.gdb": "Golden Dandelion Backport",
+    "modmenu.summaryTranslation.gdb": "Adds the Golden Dandelion to earlier versions of the game",
+    "modmenu.descriptionTranslation.gdb": "Adds the Golden Dandelion to earlier versions of the game"
 }
