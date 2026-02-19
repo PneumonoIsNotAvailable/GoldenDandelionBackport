@@ -18,10 +18,7 @@ import net.minecraft.world.entity.npc.villager.VillagerTrades;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.FlowerBlock;
-import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -30,6 +27,7 @@ import java.util.Optional;
 
 public class GDBRegistry {
     public static final Block GOLDEN_DANDELION_BLOCK = registerBlock();
+    public static final Block POTTED_GOLDEN_DANDELION = registerPotted();
     public static final Item GOLDEN_DANDELION_ITEM = registerItem();
 
     public static final SoundEvent USE_SOUND = registerSound("item.gdb.golden_dandelion.use");
@@ -58,6 +56,14 @@ public class GDBRegistry {
                         .offsetType(BlockBehaviour.OffsetType.XZ)
                         .pushReaction(PushReaction.DESTROY)
                         .setId(blockKey)
+        ));
+    }
+
+    private static Block registerPotted() {
+        ResourceKey<Block> blockKey = ResourceKey.create(Registries.BLOCK, GoldenDandelionBackport.id("potted_golden_dandelion"));
+        return Registry.register(BuiltInRegistries.BLOCK, blockKey, new FlowerPotBlock(
+                GOLDEN_DANDELION_BLOCK,
+                Blocks.flowerPotProperties().setId(blockKey)
         ));
     }
 
