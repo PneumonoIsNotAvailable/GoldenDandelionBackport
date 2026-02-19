@@ -1,6 +1,7 @@
 plugins {
 	id("fabric-loom") version "1.14-SNAPSHOT"
 	id("maven-publish")
+	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
 }
 
 java.sourceCompatibility = JavaVersion.VERSION_21
@@ -62,6 +63,34 @@ tasks {
 	jar {
 		from("LICENSE") {
 			rename {"${it}_${base.archivesName.get()}"}
+		}
+	}
+}
+
+publishMods {
+	file = tasks.remapJar.get().archiveFile
+	additionalFiles.from(tasks.remapSourcesJar.get().archiveFile)
+	displayName = "Golden Dandelion Backport ${project.version}"
+	version = "${project.version}"
+	changelog = rootProject.file("CHANGELOG.md").readText()
+	type = STABLE
+	modLoaders.addAll("fabric", "quilt")
+
+	val modrinthToken = providers.environmentVariable("MODRINTH_TOKEN")
+	dryRun = modrinthToken.getOrNull() == null
+
+	modrinth {
+		accessToken = modrinthToken
+		projectId = "WBG3OROn"
+
+		minecraftVersionRange {
+			start = "${property("min_supported_version")}"
+			end = "${property("max_supported_version")}"
+		}
+
+		requires {
+			// Fabric API
+			id = "P7dR8mSH"
 		}
 	}
 }
