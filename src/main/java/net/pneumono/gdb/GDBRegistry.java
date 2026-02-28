@@ -4,8 +4,10 @@ import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
+import net.fabricmc.fabric.api.particle.v1.FabricParticleTypes;
 import net.fabricmc.fabric.impl.content.registry.FlammableBlockRegistryImpl;
 import net.minecraft.core.Registry;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
@@ -29,6 +31,9 @@ public class GDBRegistry {
     public static final Block GOLDEN_DANDELION_BLOCK = registerBlock();
     public static final Block POTTED_GOLDEN_DANDELION = registerPotted();
     public static final Item GOLDEN_DANDELION_ITEM = registerItem();
+
+    public static final SimpleParticleType USE_PARTICLE = registerParticle("pause_mob_growth");
+    public static final SimpleParticleType UNUSE_PARTICLE = registerParticle("reset_mob_growth");
 
     public static final SoundEvent USE_SOUND = registerSound("item.gdb.golden_dandelion.use");
     public static final SoundEvent UNUSE_SOUND = registerSound("item.gdb.golden_dandelion.unuse");
@@ -80,6 +85,10 @@ public class GDBRegistry {
     private static SoundEvent registerSound(String name) {
         Identifier useSoundId = GoldenDandelionBackport.id(name);
         return Registry.register(BuiltInRegistries.SOUND_EVENT, useSoundId, new SoundEvent(useSoundId, Optional.empty()));
+    }
+
+    private static SimpleParticleType registerParticle(String name) {
+        return Registry.register(BuiltInRegistries.PARTICLE_TYPE, GoldenDandelionBackport.id(name), FabricParticleTypes.simple());
     }
 
     protected static void register() {

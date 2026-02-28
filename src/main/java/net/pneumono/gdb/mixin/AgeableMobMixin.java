@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 import net.pneumono.gdb.AgeLockData;
 import net.pneumono.gdb.GDBRegistry;
 import net.pneumono.gdb.GDBUtil;
+import net.pneumono.gdb.GoldenDandelionItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -40,6 +41,9 @@ public abstract class AgeableMobMixin extends PathfinderMob {
         AgeLockData data = getAttached(GDBRegistry.AGE_LOCK_DATA);
         if (data != null && data.ageLockCooldown() > 0) {
             setAttached(GDBRegistry.AGE_LOCK_DATA, new AgeLockData(data.ageLocked(), data.ageLockCooldown() - 1));
+            if (level().isClientSide() && data.ageLockCooldown() % 2 == 0) {
+                GoldenDandelionItem.addParticle(level(), this, data.ageLocked());
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.phys.Vec3;
 import org.jspecify.annotations.NonNull;
 
 public class GoldenDandelionItem extends BlockItem {
@@ -65,5 +66,17 @@ public class GoldenDandelionItem extends BlockItem {
     public static void playSound(Level level, BlockPos pos, boolean lockingAge) {
         SoundEvent sound = lockingAge ? GDBRegistry.USE_SOUND : GDBRegistry.UNUSE_SOUND;
         level.playSound(null, pos, sound, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
+
+    public static void addParticle(Level level, Entity entity, boolean lockingAge) {
+        float yParticleOffset = lockingAge ? 0.2F : 0.0F;
+        Vec3 spawnPosition = new Vec3(
+                entity.getRandomX(1.0),
+                entity.getY((2.0 * entity.getRandom().nextDouble() - 1.0) * 0.2) + entity.getBbHeight() + yParticleOffset,
+                entity.getRandomZ(1.0)
+        );
+        level.addParticle(
+                lockingAge ? GDBRegistry.USE_PARTICLE : GDBRegistry.UNUSE_PARTICLE, spawnPosition.x, spawnPosition.y, spawnPosition.z, 0.0, 0.0, 0.0
+        );
     }
 }
