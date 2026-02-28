@@ -1,2 +1,1 @@
-- Added Potted Golden Dandelions
-- Added Ukrainian translation
+- Add new particles for using the Golden Dandelion to match 26.1 Snapshot 10
