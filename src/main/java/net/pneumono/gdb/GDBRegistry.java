@@ -1,6 +1,7 @@
 package net.pneumono.gdb;
 
 import net.fabricmc.fabric.api.attachment.v1.AttachmentRegistry;
+import net.fabricmc.fabric.api.attachment.v1.AttachmentSyncPredicate;
 import net.fabricmc.fabric.api.attachment.v1.AttachmentType;
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents;
 import net.fabricmc.fabric.api.object.builder.v1.trade.TradeOfferHelper;
@@ -46,6 +47,7 @@ public class GDBRegistry {
             builder -> builder
                     .initializer(() -> AgeLockData.DEFAULT)
                     .persistent(AgeLockData.CODEC)
+                    .syncWith(AgeLockData.STREAM_CODEC, AttachmentSyncPredicate.all())
                     .copyOnDeath()
     );
 
