@@ -1,1 +1,3 @@
-- Add new particles for using the Golden Dandelion to match 26.1 Snapshot 10
+HOTFIX UPDATE
+
+- Fixed age lock data not being synced to client causing particles to travel in the wrong direction
