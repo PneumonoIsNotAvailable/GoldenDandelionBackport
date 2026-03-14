@@ -77,7 +77,9 @@ publishMods {
 	modLoaders.addAll("fabric", "quilt")
 
 	val modrinthToken = providers.environmentVariable("MODRINTH_TOKEN")
-	dryRun = modrinthToken.getOrNull() == null
+	val discordToken = providers.environmentVariable("DISCORD_TOKEN")
+
+	dryRun = modrinthToken.getOrNull() == null || discordToken.getOrNull() == null
 
 	modrinth {
 		accessToken = modrinthToken
@@ -93,6 +95,17 @@ publishMods {
 			id = "P7dR8mSH"
 		}
 	}
+
+	discord {
+		webhookUrl = discordToken
+
+		username = "Golden Dandelion Backport Updates"
+
+		avatarUrl = "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport/blob/master/src/main/resources/assets/gdb/icon.png?raw=true"
+
+		content = changelog.map { "# Golden Dandelion Backport version ${project.version}\n<@&1472490332783378472>\n" + it }
+	}
+
 }
 
 // configure the maven publication
