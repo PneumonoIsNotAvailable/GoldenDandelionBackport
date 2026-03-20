@@ -6,6 +6,7 @@
         "AgeableMobMixin",
         "AnimalMixin",
         "AxolotlMixin",
+        "CamelMixin",
         "DolphinMixin",
         "LlamaMixin",
         "PandaMixin",
