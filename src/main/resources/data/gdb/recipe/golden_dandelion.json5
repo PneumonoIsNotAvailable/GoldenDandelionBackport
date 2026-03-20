@@ -2,8 +2,17 @@
     "type": "minecraft:crafting_shaped",
     "category": "misc",
     "key": {
+        //? if >=1.21.9 {
         "#": "minecraft:gold_nugget",
         "I": "minecraft:dandelion"
+        //?} else {
+        /*"#": {
+            "item": "minecraft:gold_nugget"
+        },
+        "I": {
+            "item": "minecraft:dandelion"
+        }
+        *///?}
     },
     "pattern": [
         "###",

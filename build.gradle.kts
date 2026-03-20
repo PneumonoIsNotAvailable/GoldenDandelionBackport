@@ -2,14 +2,16 @@ plugins {
 	id("fabric-loom") version "1.14-SNAPSHOT"
 	id("maven-publish")
 	id("me.modmuss50.mod-publish-plugin") version "1.1.0"
+	id("dev.kikugie.fletching-table") version "0.1.0-alpha.22"
 }
 
-java.sourceCompatibility = JavaVersion.VERSION_21
-java.targetCompatibility = JavaVersion.VERSION_21
+val javaVersion = if (stonecutter.eval(stonecutter.current.version, ">=1.20.5"))
+	JavaVersion.VERSION_21 else JavaVersion.VERSION_17
+java.targetCompatibility = javaVersion
+java.sourceCompatibility = javaVersion
 
-version = "${project.property("mod_version")}"
-
-base.archivesName.set(project.property("archives_base_name") as String)
+base.archivesName.set(project.property("mod_id") as String)
+version = "${project.property("mod_version")}+${stonecutter.current.project}+${property("mod_subversion")}"
 
 repositories {
 
@@ -27,7 +29,7 @@ loom {
 }
 
 dependencies {
-	minecraft("com.mojang:minecraft:${property("minecraft_version")}")
+	minecraft("com.mojang:minecraft:${stonecutter.current.version}")
 	mappings(loom.officialMojangMappings())
 	modImplementation("net.fabricmc:fabric-loader:${property("loader_version")}")
 
@@ -36,6 +38,8 @@ dependencies {
 }
 
 tasks {
+	val java = if (stonecutter.eval(stonecutter.current.version, ">=1.20.5")) 21 else 17
+
 	processResources {
 		inputs.property("version", project.property("mod_version"))
 		inputs.property("min_supported", project.property("min_supported_version"))
@@ -43,17 +47,18 @@ tasks {
 
 		filesMatching("fabric.mod.json") {
 			expand(
-					mapOf(
-							"version" to project.property("mod_version"),
-							"min_supported" to project.property("min_supported_version"),
-							"max_supported" to project.property("max_supported_version")
-					)
+				mapOf(
+					"version" to project.property("mod_version"),
+					"min_supported" to project.property("min_supported_version"),
+					"max_supported" to project.property("max_supported_version"),
+					"java" to "$java"
+				)
 			)
 		}
 	}
 
 	withType<JavaCompile> {
-		options.release.set(21)
+		options.release.set(java)
 	}
 
 	java {
@@ -64,6 +69,13 @@ tasks {
 		from("LICENSE") {
 			rename {"${it}_${base.archivesName.get()}"}
 		}
+	}
+}
+
+fletchingTable {
+	j52j.register("main") {
+		extension("json", "umbrellas.mixins.json5")
+		extension("json", "data/**/*.json5")
 	}
 }
 
@@ -96,16 +108,17 @@ publishMods {
 		}
 	}
 
-	discord {
-		webhookUrl = discordToken
+	if (stonecutter.current.project == "1.21.9") {
+		discord {
+			webhookUrl = discordToken
 
-		username = "Golden Dandelion Backport Updates"
+			username = "Golden Dandelion Backport Updates"
 
-		avatarUrl = "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport/blob/master/src/main/resources/assets/gdb/icon.png?raw=true"
+			avatarUrl = "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport/blob/master/src/main/resources/assets/gdb/icon.png?raw=true"
 
-		content = changelog.map { "# Golden Dandelion Backport version ${project.version}\n<@&1472490332783378472>\n" + it }
+			content = changelog.map { "# Golden Dandelion Backport version ${project.version}\n<@&1472490332783378472>\n" + it }
+		}
 	}
-
 }
 
 // configure the maven publication

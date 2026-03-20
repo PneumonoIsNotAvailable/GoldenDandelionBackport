@@ -32,15 +32,14 @@ public abstract class AgeableMobMixin extends PathfinderMob {
         return original && !GDBUtil.isAgeLocked((AgeableMob)(Object)this);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     @Inject(
             method = "aiStep",
             at = @At("HEAD")
     )
     private void tickAgeLockCooldown(CallbackInfo ci) {
-        AgeLockData data = getAttached(GDBRegistry.AGE_LOCK_DATA);
+        AgeLockData data = GDBUtil.getData(this);
         if (data != null && data.ageLockCooldown() > 0) {
-            setAttached(GDBRegistry.AGE_LOCK_DATA, new AgeLockData(data.ageLocked(), data.ageLockCooldown() - 1));
+            GDBUtil.setData(this, new AgeLockData(data.ageLocked(), data.ageLockCooldown() - 1));
             if (level().isClientSide() && data.ageLockCooldown() % 2 == 0) {
                 GoldenDandelionItem.addParticle(level(), this, data.ageLocked());
             }

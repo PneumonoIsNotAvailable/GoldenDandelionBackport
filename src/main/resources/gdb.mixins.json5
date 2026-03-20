@@ -1,12 +1,13 @@
 {
     "required": true,
     "package": "net.pneumono.gdb.mixin",
-    "compatibilityLevel": "JAVA_21",
+    "compatibilityLevel": "JAVA_17",
     "mixins": [
         "AgeableMobMixin",
         "AnimalMixin",
         "AxolotlMixin",
         "CamelMixin",
+        //? if >=1.21.9
         "DolphinMixin",
         "LlamaMixin",
         "PandaMixin",

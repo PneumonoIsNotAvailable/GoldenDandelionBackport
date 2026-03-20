@@ -15,25 +15,23 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
-import org.jspecify.annotations.NonNull;
 
 public class GoldenDandelionItem extends BlockItem {
     public GoldenDandelionItem(Block block, Properties properties) {
         super(block, properties);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     @Override
-    public @NonNull InteractionResult interactLivingEntity(
-            @NonNull ItemStack stack,
-            @NonNull Player player,
-            @NonNull LivingEntity livingEntity,
-            @NonNull InteractionHand hand
+    public InteractionResult interactLivingEntity(
+            ItemStack stack,
+            Player player,
+            LivingEntity livingEntity,
+            InteractionHand hand
     ) {
         if (livingEntity.getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED)) return InteractionResult.PASS;
 
         if (livingEntity instanceof AgeableMob ageableMob) {
-            AgeLockData data = ageableMob.getAttachedOrCreate(GDBRegistry.AGE_LOCK_DATA);
+            AgeLockData data = GDBUtil.getDataOrCreate(ageableMob);
 
             if (ageableMob.isBaby() && data.ageLockCooldown() == 0) {
                 lockAge(player, stack, ageableMob, data);
@@ -41,7 +39,7 @@ public class GoldenDandelionItem extends BlockItem {
             }
 
         } else if (livingEntity instanceof Tadpole tadpole) {
-            AgeLockData data = tadpole.getAttachedOrCreate(GDBRegistry.AGE_LOCK_DATA);
+            AgeLockData data = GDBUtil.getDataOrCreate(tadpole);
 
             if (data.ageLockCooldown() == 0) {
                 lockAge(player, stack, tadpole, data);
@@ -52,14 +50,21 @@ public class GoldenDandelionItem extends BlockItem {
         return InteractionResult.PASS;
     }
 
-    @SuppressWarnings("UnstableApiUsage")
     public static void lockAge(Player player, ItemStack stack, Entity entity, AgeLockData data) {
         Level level = player.level();
         BlockPos pos = entity.getOnPos();
 
         boolean lockAge = !data.ageLocked();
-        entity.setAttached(GDBRegistry.AGE_LOCK_DATA, new AgeLockData(lockAge, 40));
+        GDBUtil.setData(entity, new AgeLockData(lockAge, 40));
+
+        //? if >=1.21 {
         stack.consume(1, player);
+        //?} else {
+        /*if (!player.isCreative()) {
+            stack.shrink(1);
+        }
+        *///?}
+
         playSound(level, pos, lockAge);
     }
 
@@ -72,7 +77,7 @@ public class GoldenDandelionItem extends BlockItem {
         float yParticleOffset = lockingAge ? 0.2F : 0.0F;
         Vec3 spawnPosition = new Vec3(
                 entity.getRandomX(1.0),
-                entity.getY((2.0 * entity.getRandom().nextDouble() - 1.0) * 0.2) + entity.getBbHeight() + yParticleOffset,
+                entity.getY((2.0 * level.getRandom().nextDouble() - 1.0) * 0.2) + entity.getBbHeight() + yParticleOffset,
                 entity.getRandomZ(1.0)
         );
         level.addParticle(

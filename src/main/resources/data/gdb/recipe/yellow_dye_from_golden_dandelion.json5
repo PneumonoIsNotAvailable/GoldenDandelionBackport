@@ -3,7 +3,13 @@
     "category": "misc",
     "group": "yellow_dye",
     "ingredients": [
-        "gdb:golden_dandelion"
+        //? if >=1.21.9 {
+        "gdb:golden_dandelion",
+        //?} else {
+        /*{
+            "item": "gdb:golden_dandelion"
+        }
+        *///?}
     ],
     "result": {
         "id": "minecraft:yellow_dye"
