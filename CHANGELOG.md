@@ -1,3 +1,3 @@
-HOTFIX UPDATE
-
-- Fixed age lock data not being synced to client causing particles to travel in the wrong direction
+- Added support for 1.20(.1) and 1.21(.1)
+- Added more links to Mod Menu description
+- Fixed Camels being able to be aged up with food even when age-locked
