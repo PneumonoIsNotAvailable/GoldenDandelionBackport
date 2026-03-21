@@ -116,7 +116,7 @@ publishMods {
 
 			avatarUrl = "https://github.com/PneumonoIsNotAvailable/GoldenDandelionBackport/blob/master/src/main/resources/assets/gdb/icon.png?raw=true"
 
-			content = changelog.map { "# Golden Dandelion Backport version ${project.version}\n<@&1472490332783378472>\n" + it }
+			content = changelog.map { "# Golden Dandelion Backport version ${project.property("mod_version")}\n<@&1472490332783378472>\n" + it }
 		}
 	}
 }
