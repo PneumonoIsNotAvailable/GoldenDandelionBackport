@@ -1,3 +1,1 @@
-- Added support for 1.20(.1) and 1.21(.1)
-- Added more links to Mod Menu description
-- Fixed Camels being able to be aged up with food even when age-locked
+- Fixed several issues relating to data not being correctly migrated to 1.20
