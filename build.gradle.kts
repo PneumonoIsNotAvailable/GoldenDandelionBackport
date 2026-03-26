@@ -74,8 +74,19 @@ tasks {
 
 fletchingTable {
 	j52j.register("main") {
-		extension("json", "umbrellas.mixins.json5")
-		extension("json", "data/**/*.json5")
+		extension("json", "gdb.mixins.json5")
+
+		if (stonecutter.eval(stonecutter.current.version, ">=1.21")) {
+			extension("json", "data/**/*.json5")
+		} else {
+			extension("json", "data/gdb/advancement/recipes/decorations/*.json5 -> /data/gdb/advancements/recipes/decorations")
+			extension("json", "data/gdb/advancement/recipes/misc/*.json5 -> /data/gdb/advancements/recipes/misc")
+			extension("json", "data/gdb/loot_table/blocks/*.json -> /data/gdb/loot_tables/blocks")
+			extension("json", "data/gdb/recipe/*.json5 -> ../recipes")
+			extension("json", "data/gdb/tags/entity_type/*.json -> ../entity_types")
+			extension("json", "data/minecraft/tags/block/*.json -> ../blocks")
+			extension("json", "data/minecraft/tags/item/*.json -> ../items")
+		}
 	}
 }
 

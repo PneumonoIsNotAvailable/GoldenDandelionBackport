@@ -19,7 +19,13 @@
         "#I#",
         "###"
     ],
+    //? if >=1.21 {
     "result": {
         "id": "gdb:golden_dandelion"
     }
+    //?} else {
+    /*"result": {
+        "item": "gdb:golden_dandelion"
+    }
+    *///?}
 }

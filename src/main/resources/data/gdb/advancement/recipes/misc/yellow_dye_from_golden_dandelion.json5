@@ -1,21 +1,17 @@
 {
     "parent": "minecraft:recipes/root",
     "criteria": {
-        "has_dandelion": {
+        "has_golden_dandelion": {
             "conditions": {
                 "items": [
                     {
-                        "items": "minecraft:dandelion"
-                    }
-                ]
-            },
-            "trigger": "minecraft:inventory_changed"
-        },
-        "has_gold_nugget": {
-            "conditions": {
-                "items": [
-                    {
-                        "items": "minecraft:gold_nugget"
+                        //? if >=1.21 {
+                        "items": "gdb:golden_dandelion",
+                        //?} else {
+                        /*"items": [
+                            "gdb:golden_dandelion"
+                        ]
+                        *///?}
                     }
                 ]
             },
@@ -23,7 +19,7 @@
         },
         "has_the_recipe": {
             "conditions": {
-                "recipe": "gdb:golden_dandelion"
+                "recipe": "minecraft:yellow_dye_from_golden_dandelion"
             },
             "trigger": "minecraft:recipe_unlocked"
         }
@@ -31,13 +27,12 @@
     "requirements": [
         [
             "has_the_recipe",
-            "has_gold_nugget",
-            "has_dandelion"
+            "has_golden_dandelion"
         ]
     ],
     "rewards": {
         "recipes": [
-            "gdb:golden_dandelion"
+            "gdb:yellow_dye_from_golden_dandelion"
         ]
     }
 }

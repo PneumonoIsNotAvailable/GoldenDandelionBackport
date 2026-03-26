@@ -11,7 +11,13 @@
         }
         *///?}
     ],
+    //? if >=1.21 {
     "result": {
         "id": "minecraft:yellow_dye"
+    },
+    //?} else {
+    /*"result": {
+        "item": "minecraft:yellow_dye"
     }
+    *///?}
 }
