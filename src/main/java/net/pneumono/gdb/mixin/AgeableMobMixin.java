@@ -11,7 +11,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.pneumono.gdb.AgeLockData;
 import net.pneumono.gdb.GDBUtil;
-import net.pneumono.gdb.GoldenDandelionItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -48,7 +47,7 @@ public abstract class AgeableMobMixin extends PathfinderMob {
         if (data != null && data.ageLockCooldown() > 0) {
             GDBUtil.setData(this, new AgeLockData(data.ageLocked(), data.ageLockCooldown() - 1));
             if (level().isClientSide() && data.ageLockCooldown() % 2 == 0) {
-                GoldenDandelionItem.addParticle(level(), this, data.ageLocked());
+                GDBUtil.addParticle(level(), this, data.ageLocked());
             }
         }
     }
@@ -58,8 +57,8 @@ public abstract class AgeableMobMixin extends PathfinderMob {
         ItemStack stack = player.getItemInHand(hand);
         AgeLockData data = GDBUtil.getDataOrCreate(this);
 
-        if (GoldenDandelionItem.canUseGoldenDandelion(stack, isBaby(), data.ageLockCooldown(), this)) {
-            GoldenDandelionItem.lockAge(player, player.getItemInHand(hand), this, data);
+        if (GDBUtil.canUseGoldenDandelion(stack, isBaby(), data.ageLockCooldown(), this)) {
+            GDBUtil.lockAge(player, player.getItemInHand(hand), this, data);
             return InteractionResult.SUCCESS;
         }
 

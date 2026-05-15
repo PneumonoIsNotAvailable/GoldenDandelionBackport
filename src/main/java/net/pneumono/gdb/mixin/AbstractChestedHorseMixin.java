@@ -10,7 +10,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.pneumono.gdb.GDBRegistry;
-import net.pneumono.gdb.GoldenDandelionItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 
@@ -29,6 +28,6 @@ public abstract class AbstractChestedHorseMixin extends AbstractHorse {
     )
     private boolean preventUnwantedFeed(boolean original, @Local(argsOnly = true) Player player, @Local(argsOnly = true) InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        return original || (stack.getItem() instanceof GoldenDandelionItem && isBaby() && !getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED));
+        return original || (stack.is(GDBRegistry.GOLDEN_DANDELION_ITEM) && isBaby() && !getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED));
     }
 }

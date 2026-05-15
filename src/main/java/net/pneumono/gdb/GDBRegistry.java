@@ -17,10 +17,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.npc.VillagerTrades;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -76,7 +73,7 @@ public class GDBRegistry {
 
     private static Item registerItem() {
         ResourceKey<Item> itemKey = ResourceKey.create(Registries.ITEM, GoldenDandelionBackport.id("golden_dandelion"));
-        return Registry.register(BuiltInRegistries.ITEM, itemKey, new GoldenDandelionItem(
+        return Registry.register(BuiltInRegistries.ITEM, itemKey, new BlockItem(
                 GOLDEN_DANDELION_BLOCK,
                 new Item.Properties()
                         //? if >=1.21.9
