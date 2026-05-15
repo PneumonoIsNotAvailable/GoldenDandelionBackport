@@ -3,12 +3,8 @@ package net.pneumono.gdb;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.animal.frog.Tadpole;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
@@ -21,33 +17,8 @@ public class GoldenDandelionItem extends BlockItem {
         super(block, properties);
     }
 
-    @Override
-    public InteractionResult interactLivingEntity(
-            ItemStack stack,
-            Player player,
-            LivingEntity livingEntity,
-            InteractionHand hand
-    ) {
-        if (livingEntity.getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED)) return InteractionResult.PASS;
-
-        if (livingEntity instanceof AgeableMob ageableMob) {
-            AgeLockData data = GDBUtil.getDataOrCreate(ageableMob);
-
-            if (ageableMob.isBaby() && data.ageLockCooldown() == 0) {
-                lockAge(player, stack, ageableMob, data);
-                return InteractionResult.SUCCESS;
-            }
-
-        } else if (livingEntity instanceof Tadpole tadpole) {
-            AgeLockData data = GDBUtil.getDataOrCreate(tadpole);
-
-            if (data.ageLockCooldown() == 0) {
-                lockAge(player, stack, tadpole, data);
-                return InteractionResult.SUCCESS;
-            }
-        }
-
-        return InteractionResult.PASS;
+    public static boolean canUseGoldenDandelion(ItemStack stack, boolean isBaby, int cooldown, Mob mob) {
+        return stack.getItem() instanceof GoldenDandelionItem && isBaby && cooldown == 0 && !mob.getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED);
     }
 
     public static void lockAge(Player player, ItemStack stack, Entity entity, AgeLockData data) {

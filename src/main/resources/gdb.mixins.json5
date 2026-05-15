@@ -3,15 +3,19 @@
     "package": "net.pneumono.gdb.mixin",
     "compatibilityLevel": "JAVA_17",
     "mixins": [
+        "AbstractChestedHorseMixin",
         "AgeableMobMixin",
         "AnimalMixin",
         "AxolotlMixin",
         "CamelMixin",
         //? if >=1.21.9
         "DolphinMixin",
+        "HorseMixin",
         "LlamaMixin",
         "PandaMixin",
-        "SheepMixin"
+        "SheepMixin",
+        "TadpoleMixin",
+        "AbstractHorseMixin"
     ],
     "injectors": {
         "defaultRequire": 1
