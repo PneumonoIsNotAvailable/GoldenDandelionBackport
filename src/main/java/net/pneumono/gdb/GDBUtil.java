@@ -19,7 +19,11 @@ import net.minecraft.server.level.ServerPlayer;
 
 public class GDBUtil {
     public static boolean canUseGoldenDandelion(ItemStack stack, boolean isBaby, int cooldown, Mob mob) {
-        return stack.is(GDBRegistry.GOLDEN_DANDELION_ITEM) && isBaby && cooldown == 0 && !mob.getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED);
+        return cooldown == 0 && isAgeLockableContext(stack, isBaby, mob);
+    }
+
+    public static boolean isAgeLockableContext(ItemStack stack, boolean isBaby, Mob mob) {
+        return stack.is(GDBRegistry.GOLDEN_DANDELION_ITEM) && isBaby && !mob.getType().is(GDBRegistry.CANNOT_BE_AGE_LOCKED);
     }
 
     public static void lockAge(Player player, ItemStack stack, Entity entity, AgeLockData data) {
